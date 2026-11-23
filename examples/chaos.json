@@ -1,0 +1,9 @@
+{
+  "random": {
+    "seed": 42,
+    "rate": 0.2,
+    "faults": ["lost_response", "lost_request", "duplicate", "garbled", "truncated", "rate_limit"],
+    "tool": "*/create_*"
+  },
+  "rateLimitMs": 10000
+}

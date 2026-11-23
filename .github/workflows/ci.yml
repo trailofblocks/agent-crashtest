@@ -1,0 +1,31 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      # Units, the proxy against the SDK client, the lab's asserted numbers, process-mode crashes, and the CLI.
+      # Scripted agents only: no model, no API key, no network.
+      - run: npm test
+      - name: Lab with ablation and chaos (exits non-zero if the idempotent agent breaks an invariant)
+        run: node dist/cli.js lab --ablation --chaos 100
+      - name: Crash sweep with real child processes, killed for real
+        run: node dist/cli.js lab --mode process
+      - name: Mutation check (the lab must catch eight planted bugs)
+        run: node scripts/mutation-check.mjs

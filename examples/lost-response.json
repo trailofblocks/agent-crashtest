@@ -1,0 +1,3 @@
+{
+  "rules": [{ "tool": "*/create_charge", "call": 1, "fault": "lost_response" }]
+}

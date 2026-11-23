@@ -1,0 +1,7 @@
+{
+  "expected": [
+    { "kind": "charge", "ref": "inv_1001", "match": { "amount_cents": 4900 } },
+    { "kind": "email", "ref": "inv_1001" }
+  ],
+  "baselineCalls": 2
+}
