@@ -220,10 +220,11 @@ The lab catches 8 of 8. While the check was being built, one mutant survived: "n
   - `lab --ablation --chaos 100`;
   - `lab --mode process`: 112 runs with real kills in about 36 s, matching the in-process crash rows exactly;
   - the mutation check: 8 of 8.
+- **WSL Ubuntu (Node 24.22.3):** the same commands, with the same results. The lab's output is identical to the tables above, and `lab --mode process` took about 32 s.
+- **CI:** configured for `ubuntu-latest` and `windows-latest`. It runs the tests, the lab, the process-mode crash sweep, and the mutation check.
 
 **Not verified:**
 
-- **Linux.** It hasn't been run on Linux yet, and CI (ubuntu-latest and windows-latest) has never run.
 - **No model.** No model has been run against agent-crashtest. The agents are scripted stand-ins for retry strategies, not measurements of any real agent or framework.
 - **No live client.** `proxy`, `serve`, and `verdict` haven't been used from Claude Code, Cursor, or any client other than the MCP SDK's.
 - **No real providers.** No real payment or email provider has been used. The sandbox follows Stripe's documented key semantics; it isn't Stripe.
